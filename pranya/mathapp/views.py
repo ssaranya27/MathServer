@@ -1,0 +1,23 @@
+from django.shortcuts import render
+
+def cylinderarea(request):
+    context = {}
+    context['area'] = "0"
+    context['r'] = "0"
+    context['h'] = "0"
+    
+    if request.method == 'POST':
+        print("POST method is used")
+        r = request.POST.get('radius', '0')  # Corrected key to retrieve radius
+        h = request.POST.get('height', '0')  # Corrected key to retrieve height
+        print('request =', request)
+        print('radius =', r)
+        print('height =', h)
+        
+        area = 2 * 3.14 * int(r) * int(h) + (2 * 3.14 * int(r) * int(r))
+        context['area'] = area
+        context['r'] = r
+        context['h'] = h
+        print('Area =', area)
+    
+    return render(request, 'mathapp/math.html', context)
